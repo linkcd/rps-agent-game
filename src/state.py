@@ -1,7 +1,5 @@
-import datetime
-from typing import TypedDict
+from pydantic import BaseModel
 
-class EmailsState(TypedDict):
-	checked_emails_ids: list[str]
-	emails: list[dict]
-	action_required_emails: dict
+class GameState(BaseModel):
+    game_number: int = 0
+    game_results: dict = {}

@@ -39,7 +39,6 @@ class JudgeCrew():
 				gameTasks.judge_game(self.judge),
 			],
 			verbose=False,
-			process=Process.sequential,
 			memory=True, #(by default it is using open ai so need api key for it)
 			embedder={
 				"provider": "aws_bedrock",
