@@ -1,30 +1,60 @@
-import asyncio
-from .flow import GameFlow
+from .state import PlayersMove, JudgeResult, RoundState, GameState
+from crewai import LLM
+from .crew.crew import PlayerCrew, JudgeCrew
 
 class Nodes():
-	def run_game(self, state):
-		print(f"## Run a new game, the init state is {state}")
-		print("game number + 1...")
+	def start_new_round(self, state: GameState) -> GameState:
+		print(f"## Before a new game starts, the previous state is {state}")
+		round_number = state["current_round_number"] + 1
+		state["current_round_number"] = round_number
+		state["current_round_state"] = RoundState(
+			round_number=round_number,
+			players_moves=[],
+			judge_result={}
+		)
+		return state
 
-		state.game_number += 1
-		print(f"after added 1, the new state is {state}")
+	def player1(self, state: GameState) -> GameState:
+		print(f"p1 input state: {state}")
+		player_llm = LLM(model="bedrock/anthropic.claude-3-sonnet-20240229-v1:0", temperature=0.1)
+		player_crew = PlayerCrew("claude-3-sonnet", player_llm)
+        
+		pr = player_crew.crew.kickoff().pydantic.model_dump()
+		print("player 1: ", pr)
+		state["current_round_state"]["players_moves"].append(pr)
+
+	def player2(self, state: GameState) -> GameState:
+		print(f"p2 input state: {state}")
+		player_llm = LLM(model="bedrock/anthropic.claude-3-haiku-20240307-v1:0", temperature=0.1)
+		#player_llm = LLM(model="bedrock/mistral.mistral-7b-instruct-v0:2", temperature=0.1)
+		player_crew = PlayerCrew("claude-3-haiku", player_llm)
   
-		flow = GameFlow(state)
-		asyncio.run(flow.kickoff())
-  
-		print(f"After the game run, the output is {state}")
-		return flow.state
+		pr = player_crew.crew.kickoff().pydantic.model_dump()
+		print("player 2: ", pr)
+		state["current_round_state"]["players_moves"].append(pr)
+
+	def judge(self, state: GameState) -> GameState:
+		print(f"judge input state: {state}")
+		judge_llm = LLM(model="bedrock/anthropic.claude-3-haiku-20240307-v1:0", temperature=0.1)
+		judge_crew = JudgeCrew(judge_llm)
+		jr = judge_crew.crew.kickoff(inputs={"player_results": state["current_round_state"]}).pydantic.model_dump()
+
+		round_number = state["current_round_number"]
+		state["current_round_state"]["judge_result"] = jr
+
+		# Add the current round state to the round history
+		state["round_history"][round_number] = state["current_round_state"]
 
 	def check_if_need_more_round(self, state):
-		print(f"CHECK if we need continue. The current status is {state}!!!")
-		if state.game_number > 3:
+		print(f"condition check input state: {state}")
+		if state["current_round_number"] > 1:
 			print("## max round reached")
 			return "end"
 		else:
 			print("## need more round")
 		return "continue"
 
-	# def announce_winner(self, state):
-	# 	print("!!!Winner!!!")
-	# 	print(str(state))
+	def announce_winner(self, state: GameState):
+		print("!!!Winner!!!")
+		print(str(state))
 

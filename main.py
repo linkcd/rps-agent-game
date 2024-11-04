@@ -1,5 +1,8 @@
-from src.graph import WorkFlow
-from src.state import GameState
+from src.graph import GraphBuilder
+from src.state import GameState, RoundState, JudgeResult
 
-app = WorkFlow().app
-app.invoke(GameState())
+app = GraphBuilder().app
+app.invoke(GameState(
+            current_round_number=0,  # Start with round number 0
+            round_history={}   # Empty dictionary for game round results
+    ))

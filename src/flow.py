@@ -1,6 +1,4 @@
 
-import warnings
-warnings.filterwarnings('ignore')
 
 import asyncio
 import json

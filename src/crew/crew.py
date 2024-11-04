@@ -16,15 +16,15 @@ class PlayerCrew():
 					gameTasks.play_game(self.player),
 				],
 				verbose=False,
-				process=Process.sequential,
-				memory=True, #(by default it is using open ai so need api key for it)
-				embedder={
-					"provider": "aws_bedrock",
-					"config":{
-					"model": "amazon.titan-embed-text-v2:0",
-					"vector_dimension": 1024
-					}
-				}
+				# process=Process.sequential,
+				# memory=True, #(by default it is using open ai so need api key for it)
+				# embedder={
+				# 	"provider": "aws_bedrock",
+				# 	"config":{
+				# 	"model": "amazon.titan-embed-text-v2:0",
+				# 	"vector_dimension": 1024
+				# 	}
+				# }
 			)
   
 class JudgeCrew():
@@ -39,14 +39,14 @@ class JudgeCrew():
 				gameTasks.judge_game(self.judge),
 			],
 			verbose=False,
-			memory=True, #(by default it is using open ai so need api key for it)
-			embedder={
-				"provider": "aws_bedrock",
-				"config":{
-				"model": "amazon.titan-embed-text-v2:0",
-				"vector_dimension": 1024
-				}
-			}
+			# memory=True, #(by default it is using open ai so need api key for it)
+			# embedder={
+			# 	"provider": "aws_bedrock",
+			# 	"config":{
+			# 	"model": "amazon.titan-embed-text-v2:0",
+			# 	"vector_dimension": 1024
+			# 	}
+			# }
 		)
 		
 		
