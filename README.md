@@ -34,10 +34,16 @@ pip install -r requirements.txt
 python main.py
 ```
 
-## A game between llama3-8b-instruct and claude-3-sonnet
-The game round result can be found at here [doc/sample_state.json](doc/sample_state.json)
+## Run game between llama3-8b-instruct and claude-3-sonnet
+I have ran 2 games that llama3-8b-instruct play against claude-3-sonnet.
 
-The final announcement and post-game analysis is like 
+claude-3-sonnet won both games. 
+
+The game with 10 rounds result can be found at here [doc/sample_state.json](doc/sample_state.json)
+
+The final announcement and post-game analysis examples are:
+
+1. A game with 10 rounds (finished in 89.63 sec)
 ```
 After reviewing the game history, here are my findings:
 
@@ -71,6 +77,42 @@ After reviewing the game history, here are my findings:
       - llama3-8b-instruct's moves were more predictable, which might have contributed to its losses
 
 In conclusion, claude-3-sonnet demonstrated a superior strategy and adaptability, leading to its victory in the game.
+```
+
+2. a game with 20 rounds (finished in 160 sec)
+```
+After reviewing the game history, here are my findings:
+
+1. Judge Result Accuracy:
+The judge's results appear to be correct for all rounds. There are no noticeable mistakes in the outcomes based on the players' moves.
+
+2. Determining the Winner:
+To determine the overall winner, I'll count the wins for each player:
+
+llama3-8b-instruct wins: 5 (rounds 4, 7, 14, 16, 17)
+claude-3-sonnet wins: 7 (rounds 2, 5, 10, 11, 13, 15, 20)
+Ties: 8 (rounds 1, 3, 6, 8, 12, 18, 19)
+
+The winner of the game is claude-3-sonnet with 7 wins compared to llama3-8b-instruct's 5 wins.
+
+3. Noticeable Patterns:
+
+a) llama3-8b-instruct:
+- Shows a strong preference for Scissors, playing it 10 out of 20 rounds (50% of the time).
+- Plays Rock 4 times and Paper 6 times.
+- Has a streak of playing Scissors for 5 consecutive rounds (13-17).
+
+b) claude-3-sonnet:
+- More balanced play, with Rock 8 times, Paper 7 times, and Scissors 5 times.
+- Shows adaptability, often changing moves between rounds.
+- Has a small streak of playing Rock for 3 consecutive rounds (18-20).
+
+c) General patterns:
+- The game has a high number of ties (8 out of 20 rounds, or 40%).
+- There are several instances where both players repeat their previous move, leading to either repeated outcomes or a change in winner.
+- The last two rounds ended in ties with both players choosing Rock, suggesting possible conservative play towards the end of the game.
+
+In conclusion, claude-3-sonnet's more balanced and adaptable strategy seems to have given it an edge in this game, while llama3-8b-instruct's heavy reliance on Scissors may have made its moves more predictable.
 ```
 
 ## License
