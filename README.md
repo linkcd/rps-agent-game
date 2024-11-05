@@ -1,42 +1,38 @@
-# CrewAI + LangGraph
+# Rock Paper Scissors (rps) Agent Game
 
 ## Introduction
-This is an example of how to use the [CrewAI](https://github.com/joaomdmoura/crewai) with LangChain and LangGraph to automate the process of automatically checking emails and creating drafts. CrewAI orchestrates autonomous AI agents, enabling them to collaborate and execute complex tasks efficiently.
+Have you ever wondered which AI model is the best Rock-Paper-Scissors player? This project will help you find out!
 
-![High level image](./CrewAI-LangGraph.png)
+This project demonstrates how to use the [CrewAI](https://www.crewai.com/) and [LangGraph](https://www.langchain.com/langgraph) to build multi-agent systems. It runs fully automated Rock-Paper-Scissors games, where multiple AI agents play against each other. Each AI agent is powered by a different Large Language Model (LLM), allowing you to run games such as OpenAI vs. Meta Llama, or Llama vs. Claude. There are also AI judge agents to compare player agents’ moves and decide the winner.
 
+### Features
+- **Multi-Agent System**: Simulate games with multiple AI agents.
+- **Diverse AI Models**: Compare different LLMs like OpenAI, Meta Llama, and Claude.
+- **Automated Judging**: AI judge agents determine the winner of each round.
 
-By [@joaomdmoura](https://x.com/joaomdmoura)
+## Workflow
+It runs multiple rounds of Rock-Paper-Scissors games. 
+- In each round, two player agents make their moves independently and in parallel. They have access to the history of previous rounds, allowing them to analyze patterns and decide on the best move.
+- After the players make their moves, a judge agent determines the winner of the round.
+- The system checks if the criteria for determining the final winner have been met (e.g., reaching the specified number of rounds, or a player winning 3 out of 5 rounds).
+	- **Criteria Not Met**: If the criteria are not met, another round begins.
+	- **If the criteria are met**: The final winner is announced, and a post-game analysis is performed.
 
-- [CrewAI Framework](#crewai-framework)
-- [Running the code](#running-the-code)
-- [Details & Explanation](#details--explanation)
-- [Using Local Models with Ollama](#using-local-models-with-ollama)
-- [License](#license)
+![Workflow graph](doc/graph.png "Graph")
 
-## CrewAI Framework
-CrewAI is designed to facilitate the collaboration of role-playing AI agents. In this example, these agents work together to give a complete stock analysis and investment recommendation
+## Building blocks
+- CrewAI: For defining the agents and tasks
+- LangGraph: For defining the workflow 
+- Amazon Bedrock: For LLM hosting
+- LangSmith: For debugging and tracking
 
-## Running the Code
-This example uses GPT-4.
+## Run the project
+```bash
+python -m venv .venv
+pip install -r requirements.txt  
 
-- **Configure Environment**: Copy ``.env.example` and set up the environment variable
-- **Setup a credentials.json**: Follow the [google instructions](https://developers.google.com/gmail/api/quickstart/python#authorize_credentials_for_a_desktop_application), once you’ve downloaded the file, name it `credentials.json` and add to the root of the project,
-- **Create venv: `python -m venv .venv`
-- Activate venv: `source .venv/bin/activate`
-- **Install Dependencies**: Run `pip install -r requirements.txt`
-- **Execute the Script**: Run `python main.py`
-
-## Details & Explanation
-- **Running the Script**: Execute `python main.py`
-- **Key Components**:
-	- `./src/graph.py`: Class defining the nodes and edges.
-	- `./src/nodes.py`: Class with the function for each node.
-	- `./src/state.py`: State declaration.
-	- `./src/crew/agents.py`: Class defining the CrewAI Agents.
-	- `./src/crew/tasks.py`: Class definig the CrewAI Tasks.
-	- `./src/crew/crew.py`: Class defining the CrewAI Crew.
-	- `./src/crew/tools.py`: Class implementing the GmailDraft Tool.
+python main.py
+```
 
 ## License
 This project is released under the MIT License.
