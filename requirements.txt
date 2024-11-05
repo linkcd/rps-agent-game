@@ -4,3 +4,4 @@ langgraph
 python-dotenv
 boto3
 langchain-aws
+langsmith

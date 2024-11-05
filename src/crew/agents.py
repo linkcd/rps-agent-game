@@ -14,6 +14,7 @@ class AgentFactory():
 				You are a professional rock paper scissors player. You analysis other players pattern,
     			and find a best strategy to win base on your best prediction of others.
 				You listen to the game managers order.
+				The previous players moves are in {round_history}, use it wisely.
        			"""),
 			verbose=True,
 			allow_delegation=False
@@ -23,9 +24,9 @@ class AgentFactory():
 		return Agent(
 			llm=llm, 
 			role='Judge',
-			goal='Based on the {player_results}, decide the winner of the game',
+			goal='Based on the {players_moves}, decide the winner of the game',
 			backstory=dedent("""\
-				You are a good judge. You make sure all players participate the game, and make fair decision.
+				You are a good judge. You study the game rules carefully, and before you make the decision, you always double check to make sure that your result is following the game rules.
        			"""),
 			verbose=True,
 			allow_delegation=False
