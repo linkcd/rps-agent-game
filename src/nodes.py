@@ -3,6 +3,11 @@ from crewai import LLM
 from .crew.crew import PlayerCrew, JudgeCrew
 from langsmith import traceable
 
+from langchain_core.messages import HumanMessage, AIMessage
+from langchain_aws import ChatBedrock
+import json
+
+
 class Nodes():
 	def start_new_round(self, state: GameState) -> GameState:
 		print(f"## Before a new game starts, the previous state is {state}")
@@ -28,9 +33,9 @@ class Nodes():
 	@traceable 
 	def player2(self, state: GameState) -> GameState:
 		print(f"p2 input state: {state}")
-		player_llm = LLM(model="bedrock/anthropic.claude-3-haiku-20240307-v1:0", temperature=0.1)
-		#player_llm = LLM(model="bedrock/mistral.mistral-7b-instruct-v0:2", temperature=0.1)
-		player_crew = PlayerCrew("claude-3-haiku", player_llm)
+		#player_llm = LLM(model="bedrock/anthropic.claude-3-haiku-20240307-v1:0", temperature=0.1)
+		player_llm = LLM(model="bedrock/meta.llama3-8b-instruct-v1:0", temperature=0.1)
+		player_crew = PlayerCrew("llama3-8b-instruct", player_llm)
   
 		pr = player_crew.crew.kickoff(inputs={"round_history": state["round_history"]}).pydantic.model_dump()
 		print("player 2: ", pr)
@@ -51,14 +56,30 @@ class Nodes():
 
 	def check_if_need_more_round(self, state):
 		print(f"condition check input state: {state}")
-		if state["current_round_number"] > 10:
+		if state["current_round_number"] < 10:
+			print("## need more round")
+			return "continue"
+		else:
 			print("## max round reached")
 			return "end"
-		else:
-			print("## need more round")
-		return "continue"
 
 	def announce_winner(self, state: GameState):
-		print("!!!Winner!!!")
-		print(str(state))
+		history = json.dumps(state["round_history"])
+		print(f"announce winner input state: {state}")
+		llm = ChatBedrock(model_id="anthropic.claude-3-5-sonnet-20240620-v1:0")
+
+		prompt = f"""
+			You are a helpful assistant. You are given the history of a game.
+			Your tasks:
+			1. Double check if there is any mistake of the judge result per round.
+			2. You need to determine the winner of the game by reading all rounds history.
+			3. Report any noticeable pattern of the players' moves.
+
+			The history is as follows:
+			{history}
+			"""
+		final_result = llm.invoke([HumanMessage(prompt)])
+  
+		print(final_result)
+  
 

@@ -1,5 +1,8 @@
+from dotenv import load_dotenv
 from src.graph import GraphBuilder
 from src.state import GameState, RoundState, JudgeResult
+
+load_dotenv()
 
 input = GameState(
             current_round_number=0,  # Start with round number 0
@@ -7,6 +10,7 @@ input = GameState(
     )
 
 app = GraphBuilder().app
+
 app.invoke(input, {"recursion_limit": 100})
 
 # for chunk in app.stream(input, stream_mode="debug"):

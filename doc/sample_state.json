@@ -1,0 +1,181 @@
+{
+  "current_round_number": 10,
+  "current_round_state": {
+    "round_number": 10,
+    "players_moves": [
+      {
+        "player_name": "llama3-8b-instruct",
+        "move": "Scissors"
+      },
+      {
+        "player_name": "claude-3-sonnet",
+        "move": "Paper"
+      }
+    ],
+    "judge_result": {
+      "winner": "Player 1, 'llama3-8b-instruct'"
+    }
+  },
+  "round_history": {
+    "1": {
+      "round_number": 1,
+      "players_moves": [
+        {
+          "player_name": "llama3-8b-instruct",
+          "move": "Rock"
+        },
+        {
+          "player_name": "claude-3-sonnet",
+          "move": "Rock"
+        }
+      ],
+      "judge_result": {
+        "winner": "tie"
+      }
+    },
+    "2": {
+      "round_number": 2,
+      "players_moves": [
+        {
+          "player_name": "llama3-8b-instruct",
+          "move": "Rock"
+        },
+        {
+          "player_name": "claude-3-sonnet",
+          "move": "Rock"
+        }
+      ],
+      "judge_result": {
+        "winner": "Tie"
+      }
+    },
+    "3": {
+      "round_number": 3,
+      "players_moves": [
+        {
+          "player_name": "llama3-8b-instruct",
+          "move": "Rock"
+        },
+        {
+          "player_name": "claude-3-sonnet",
+          "move": "Paper"
+        }
+      ],
+      "judge_result": {
+        "winner": "claude-3-sonnet"
+      }
+    },
+    "4": {
+      "round_number": 4,
+      "players_moves": [
+        {
+          "player_name": "llama3-8b-instruct",
+          "move": "Paper"
+        },
+        {
+          "player_name": "claude-3-sonnet",
+          "move": "Paper"
+        }
+      ],
+      "judge_result": {
+        "winner": "Tie"
+      }
+    },
+    "5": {
+      "round_number": 5,
+      "players_moves": [
+        {
+          "player_name": "llama3-8b-instruct",
+          "move": "Paper"
+        },
+        {
+          "player_name": "claude-3-sonnet",
+          "move": "Scissors"
+        }
+      ],
+      "judge_result": {
+        "winner": "claude-3-sonnet"
+      }
+    },
+    "6": {
+      "round_number": 6,
+      "players_moves": [
+        {
+          "player_name": "llama3-8b-instruct",
+          "move": "Scissors"
+        },
+        {
+          "player_name": "claude-3-sonnet",
+          "move": "Rock"
+        }
+      ],
+      "judge_result": {
+        "winner": "claude-3-sonnet"
+      }
+    },
+    "7": {
+      "round_number": 7,
+      "players_moves": [
+        {
+          "player_name": "llama3-8b-instruct",
+          "move": "Paper"
+        },
+        {
+          "player_name": "claude-3-sonnet",
+          "move": "Scissors"
+        }
+      ],
+      "judge_result": {
+        "winner": "claude-3-sonnet"
+      }
+    },
+    "8": {
+      "round_number": 8,
+      "players_moves": [
+        {
+          "player_name": "llama3-8b-instruct",
+          "move": "Paper"
+        },
+        {
+          "player_name": "claude-3-sonnet",
+          "move": "Paper"
+        }
+      ],
+      "judge_result": {
+        "winner": "Tie"
+      }
+    },
+    "9": {
+      "round_number": 9,
+      "players_moves": [
+        {
+          "player_name": "llama3-8b-instruct",
+          "move": "Rock"
+        },
+        {
+          "player_name": "claude-3-sonnet",
+          "move": "Paper"
+        }
+      ],
+      "judge_result": {
+        "winner": "claude-3-sonnet"
+      }
+    },
+    "10": {
+      "round_number": 10,
+      "players_moves": [
+        {
+          "player_name": "llama3-8b-instruct",
+          "move": "Scissors"
+        },
+        {
+          "player_name": "claude-3-sonnet",
+          "move": "Paper"
+        }
+      ],
+      "judge_result": {
+        "winner": "Player 1, 'llama3-8b-instruct'"
+      }
+    }
+  }
+}

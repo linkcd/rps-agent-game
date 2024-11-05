@@ -34,5 +34,44 @@ pip install -r requirements.txt
 python main.py
 ```
 
+## A game between llama3-8b-instruct and claude-3-sonnet
+The game round result can be found at here [doc/sample_state.json](doc/sample_state.json)
+
+The final announcement and post-game analysis is like 
+```
+After reviewing the game history, here are my findings:
+
+1. Judge Result Accuracy:
+   There is one minor inconsistency in the judge's result terminology. In round 1, the result is listed as "tie" (lowercase), while in other tie rounds (2, 4, and 8), it's listed as "Tie" (capitalized). This doesn't affect the outcome but is worth noting for consistency.
+
+   In round 10, the judge's result format is different from the rest, stating "Player 1, 'llama3-8b-instruct'" instead of just the player name. However, the winner is correctly identified.
+
+2. Game Winner Determination:
+   Based on the round-by-round results:
+   - claude-3-sonnet won 5 rounds (3, 5, 6, 7, 9)
+   - llama3-8b-instruct won 1 round (10)
+   - 4 rounds were ties (1, 2, 4, 8)
+
+   Therefore, the overall winner of the game is claude-3-sonnet.
+
+3. Noticeable Patterns:
+   a. llama3-8b-instruct:
+      - Started with Rock for the first three rounds
+      - Showed a preference for Paper, playing it 4 times out of 10 rounds
+      - Only played Scissors twice, in rounds 6 and 10
+
+   b. claude-3-sonnet:
+      - Showed a strong preference for Paper, playing it 5 times out of 10 rounds
+      - Played Rock only twice, in the first two rounds
+      - Seemed to adapt its strategy, not repeating the same move more than twice in a row
+
+   c. General Observations:
+      - The game had a high number of ties (4 out of 10 rounds)
+      - claude-3-sonnet seemed to have a more varied and adaptive strategy compared to llama3-8b-instruct
+      - llama3-8b-instruct's moves were more predictable, which might have contributed to its losses
+
+In conclusion, claude-3-sonnet demonstrated a superior strategy and adaptability, leading to its victory in the game.
+```
+
 ## License
 This project is released under the MIT License.

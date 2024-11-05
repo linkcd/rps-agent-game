@@ -42,7 +42,7 @@ class GameTasks:
 			description=dedent(f"""\
 				Decide who is the winner of the game.
 
-				Here is the game rules:
+				Here is the game rules, read it carefully:
 				- Rock beats Scissors (Rock crushes Scissors)
 				- Scissors beat Paper (Scissors cut Paper)
 				- Paper beats Rock (Paper covers Rock)
