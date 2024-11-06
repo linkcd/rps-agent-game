@@ -26,10 +26,10 @@ It runs multiple rounds of Rock-Paper-Scissors games.
 - Amazon Bedrock: For LLM hosting
 - LangSmith: For debugging and tracking
 
-## 3. Demo: the Claude 3 Sonnet ability of playing Rock Paper Scissors games
+## 3. Demo: The ability of Claude 3 Sonnet to play Rock Paper Scissors games
 ### 3.1 Claude 3 Sonnet vs Doreamen (AI Agent vs a dummy agent)
 ![Claude 3 Sonnet vs Doreamen](/doc/game_history/claude-vs-doraemon.png "")
-> Noticeable patterns:
+> Noticeable patterns (from post-game analysis):
 >    - Doraemon consistently played Rock in all 20 rounds, showing no variation in strategy.
 >    - claude-3-sonnet started with Rock for the first two rounds, then switched to a pattern of mostly playing Paper, with one instance of Scissors in round 4.
 >    - After round 5, claude-3-sonnet exclusively played Paper for the remaining rounds, likely adapting to Doraemon's consistent Rock strategy.
@@ -38,11 +38,11 @@ It runs multiple rounds of Rock-Paper-Scissors games.
 
 And we know exactly why Doraemon consistently played Rock :)
 
-![ Doreamen](/doc/game_history/doraemon.png "")
+![Doreamen](/doc/game_history/doraemon.png "")
 
 ### 3.2 Claude 3 Sonnet vs Llama3 (AI Agent vs another AI agent)
 ![Claude 3 Sonnet vs Doreamen](/doc/game_history/claude-vs-llama3.png "")
-> Noticeable Patterns:
+> Noticeable Patterns (from post-game analysis):
 >
 > llama3-8b-instruct:
 >    - Shows a strong preference for Paper (10 times) and Rock (7 times), rarely choosing Scissors (only 3 times).
