@@ -1,6 +1,6 @@
 # Rock Paper Scissors (rps) Agent Game
 
-## Introduction
+## 1. Introduction
 Have you ever wondered which AI model is the best Rock-Paper-Scissors player? This project will help you find out!
 
 This project demonstrates how to use the [CrewAI](https://www.crewai.com/) and [LangGraph](https://www.langchain.com/langgraph) to build multi-agent systems. It runs fully automated Rock-Paper-Scissors games, where multiple AI agents play against each other. Each AI agent is powered by a different Large Language Model (LLM), allowing you to run games such as OpenAI vs. Meta Llama, or Llama vs. Claude. There are also AI judge agents to compare player agents’ moves and decide the winner.
@@ -10,7 +10,7 @@ This project demonstrates how to use the [CrewAI](https://www.crewai.com/) and [
 - **Diverse AI Models**: Compare different LLMs like OpenAI, Meta Llama, and Claude.
 - **Automated Judging**: AI judge agents determine the winner of each round.
 
-## Workflow
+## 2. Workflow
 It runs multiple rounds of Rock-Paper-Scissors games. 
 - In each round, two player agents make their moves independently and in parallel. They have access to the history of previous rounds, allowing them to analyze patterns and decide on the best move.
 - After the players make their moves, a judge agent determines the winner of the round.
@@ -20,21 +20,45 @@ It runs multiple rounds of Rock-Paper-Scissors games.
 
 ![Workflow graph](doc/graph.png "Graph")
 
-## Building blocks
+### 2.1. Building blocks
 - CrewAI: For defining the agents and tasks
 - LangGraph: For defining the workflow 
 - Amazon Bedrock: For LLM hosting
 - LangSmith: For debugging and tracking
 
-## Run the project
-```bash
-python -m venv .venv
-pip install -r requirements.txt  
+## 3. Demo: the Claude 3 Sonnet ability of playing Rock Paper Scissors games
+### 3.1 Claude 3 Sonnet vs Doreamen (AI Agent vs a dummy agent)
+![Claude 3 Sonnet vs Doreamen](/doc/game_history/claude-vs-doraemon.png "")
+> Noticeable patterns:
+>    - Doraemon consistently played Rock in all 20 rounds, showing no variation in strategy.
+>    - claude-3-sonnet started with Rock for the first two rounds, then switched to a pattern of mostly playing Paper, with one instance of Scissors in round 4.
+>    - After round 5, claude-3-sonnet exclusively played Paper for the remaining rounds, likely adapting to Doraemon's consistent Rock strategy.
+>    - The game shows a clear example of one player (claude-3-sonnet) adapting to the other player's (Doraemon) predictable strategy, resulting in a dominant performance.
+> 
 
-python main.py
-```
+And we know exactly why Doraemon consistently played Rock :)
 
-## Run game between llama3-8b-instruct and claude-3-sonnet
+![ Doreamen](/doc/game_history/doraemon.png "")
+
+### 3.2 Claude 3 Sonnet vs Llama3 (AI Agent vs another AI agent)
+![Claude 3 Sonnet vs Doreamen](/doc/game_history/claude-vs-llama3.png "")
+> Noticeable Patterns:
+>
+> llama3-8b-instruct:
+>    - Shows a strong preference for Paper (10 times) and Rock (7 times), rarely choosing Scissors (only 3 times).
+>    - Often repeats the same move for several consecutive rounds.
+>
+> claude-3-sonnet:
+>    - Has a very strong preference for Scissors (13 times out of 20 rounds).
+>    - Rarely chooses Rock (only twice in the entire game).
+>    - Seems to adapt its strategy to counter llama3-8b-instruct's frequent use of Paper.
+>
+> Overall game pattern:
+>    - There's a high frequency of Paper vs Scissors matchups (9 times), which always favors claude-3-sonnet.
+>    - The game becomes somewhat predictable in later rounds, with llama3-8b-instruct often playing Paper and claude-3-sonnet countering with Scissors.
+>
+
+## 4. Post-game analysis between llama3-8b-instruct and claude-3-sonnet
 I have ran 2 games that llama3-8b-instruct play against claude-3-sonnet.
 
 claude-3-sonnet won both games. 
@@ -113,6 +137,16 @@ c) General patterns:
 - The last two rounds ended in ties with both players choosing Rock, suggesting possible conservative play towards the end of the game.
 
 In conclusion, claude-3-sonnet's more balanced and adaptable strategy seems to have given it an edge in this game, while llama3-8b-instruct's heavy reliance on Scissors may have made its moves more predictable.
+```
+
+## 5. Run the project
+```bash
+python -m venv .venv
+pip install -r requirements.txt 
+
+# make sure .env file has correct API keys
+
+python main.py #it will save the game result to game_result_{timestamp}.txt
 ```
 
 ## License

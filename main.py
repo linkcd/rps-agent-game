@@ -11,7 +11,7 @@ input = GameState(
 
 app = GraphBuilder().app
 
-app.invoke(input, {"recursion_limit": 100})
+app.invoke(input, {"recursion_limit": 200})
 
 # for chunk in app.stream(input, stream_mode="debug"):
 #     node_name = list(chunk.keys())[0]

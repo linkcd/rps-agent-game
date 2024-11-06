@@ -6,6 +6,20 @@ from langsmith import traceable
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_aws import ChatBedrock
 import json
+from datetime import datetime
+
+def save_game_result(final_result, history):
+	timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+	filename = f"game_result_{timestamp}.txt"
+
+	with open(filename, 'w') as file:
+		file.write(final_result)
+		
+	with open(filename, 'a') as file:
+		file.write("\n\n")
+		file.write("game rounds history:")
+		file.write("\n\n")
+		file.write(history)
 
 
 class Nodes():
@@ -41,6 +55,13 @@ class Nodes():
 		print("player 2: ", pr)
 		state["current_round_state"]["players_moves"].append(pr)
 
+	def Doraemon(self, state: GameState) -> GameState:
+		pr = PlayersMove(
+			player_name="Doraemon",
+			player_move="Rock" # Doraemen can only play rock :)
+		)
+		state["current_round_state"]["players_moves"].append(pr)
+
 	@traceable 
 	def judge(self, state: GameState) -> GameState:
 		print(f"judge input state: {state}")
@@ -56,7 +77,7 @@ class Nodes():
 
 	def check_if_need_more_round(self, state):
 		print(f"condition check input state: {state}")
-		if state["current_round_number"] < 10:
+		if state["current_round_number"] < 20:
 			print("## need more round")
 			return "continue"
 		else:
@@ -64,7 +85,7 @@ class Nodes():
 			return "end"
 
 	def announce_winner(self, state: GameState):
-		history = json.dumps(state["round_history"])
+		history = json.dumps(state["round_history"], indent=2)
 		print(f"announce winner input state: {state}")
 		llm = ChatBedrock(model_id="anthropic.claude-3-5-sonnet-20240620-v1:0")
 
@@ -78,8 +99,7 @@ class Nodes():
 			The history is as follows:
 			{history}
 			"""
-		final_result = llm.invoke([HumanMessage(prompt)])
+		final_result = str(llm.invoke([HumanMessage(prompt)]).content).replace("\\n\\n", "\n\n")
   
-		print(final_result)
-  
+		save_game_result(final_result, history)
 
