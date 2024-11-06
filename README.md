@@ -38,7 +38,7 @@ It runs multiple rounds of Rock-Paper-Scissors games.
 
 And we know exactly why Doraemon consistently played Rock :)
 
-![Doreamen](/doc/game_history/doraemon.png "")
+![Doreamen](/doc/game_history/Doraemon.png "")
 
 ### 3.2 Claude 3 Sonnet vs Llama3 (AI Agent vs another AI agent)
 ![Claude 3 Sonnet vs Doreamen](/doc/game_history/claude-vs-llama3.png "")
