@@ -68,10 +68,12 @@ This is the same with claude 3 sonnet based agent
 - [Doraemon vs claude-3-sonnet with memory](/doc/game_history/doraemon%20vs%20claude-3-sonnet.png)
 
 ### Game 3: Llama3 8B Instruct vs Claude Sonnet 3
-Both AI agents have identical prompt and memory capacity. 
-It shows with 20 rounds, Llama3 8B Instruct is better, but as more rounds were played, Claude Sonnet 3 agent developed better strategy and 
+Both AI agents have identical prompt and memory capacity. This is purely comparing different models "personality". 
 
-#### Llama3 8B Instruct vs Claude Sonnet 3 (20 rounds)
+**Game 3 results:**
+
+Within 20 rounds, Llama3 8B Instruct initially performed better. However, as more rounds were played, the Claude Sonnet 3 agent adapted its strategy to counter Llama3-8b-instruct’s preference for Paper, ultimately leading to its decisive victory in the game.
+
 - [20 rounds](/doc/game_history/llama3-8b-instruct%20vs%20claude-3-sonnet%2020%20rounds.txt) : llama3-8b-instruct **8:5** claude-3-sonnet, with 6 ties
 ![20 rounds](/doc/game_history/llama3-8b-instruct%20vs%20claude-3-sonnet%2020%20rounds.png)
 
@@ -81,17 +83,37 @@ It shows with 20 rounds, Llama3 8B Instruct is better, but as more rounds were p
 - [100 rounds](/doc/game_history/llama3-8b-instruct%20vs%20claude-3-sonnet%20100%20rounds.txt) : llama3-8b-instruct **29:55** claude-3-sonnet, with 16 ties
 ![100 rounds](/doc/game_history/llama3-8b-instruct%20vs%20claude-3-sonnet%20100%20rounds.png)
 
+> Noticeable Patterns for the game with 100 rounds:
+> 
+> a) llama3-8b-instruct:
+> - Shows a strong preference for Paper, playing it in 64 out of 100 rounds (64%).
+> - Rarely plays Scissors, only 11 times throughout the game.
+> - Tends to stick with Paper for long streaks, especially towards the end of the game.
+> 
+> b) claude-3-sonnet:
+> - Demonstrates a clear preference for Scissors, playing it in 58 out of 100 rounds (58%).
+> - Adapts its strategy over time, increasing its use of Scissors as it recognizes llama3-8b-instruct's preference for Paper.
+> - Plays Rock less frequently, only 19 times throughout the game.
+>
+> c) Game Progression:
+> - The game starts with more varied plays from both players.
+> - As the game progresses, it becomes more predictable with llama3-8b-instruct primarily playing Paper and claude-3-sonnet countering with Scissors.
+> - The last 30 rounds show an almost complete lock-in of this Paper vs Scissors pattern, heavily favoring claude-3-sonnet.
+
+> In conclusion, claude-3-sonnet appears to have adapted its strategy to counter llama3-8b-instruct's preference for Paper, leading to its decisive victory in the game.
+
+
 ## 5. Run the project
 ```bash
 python -m venv .venv
 pip install -r requirements.txt 
 
-# make sure .env file has correct API keys
+# create .env file has correct API keys. the example file is .sample.env
 
-python main.py 
 #The execution result will be be 2 files in game_outputs folder
-- 1. game_result_{timestamp}.txt - post game analysis and complete round history: 
-- 2. game_result_{timestamp}.png - game result visualization
+# - 1. game_result_{timestamp}.txt - post game analysis and complete round history: 
+# - 2. game_result_{timestamp}.png - game result visualization
+python main.py 
 ```
 
 ## License
