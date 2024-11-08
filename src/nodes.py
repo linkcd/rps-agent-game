@@ -45,20 +45,59 @@ class Nodes():
 	def Doraemon(self, state: GameState) -> GameState:
 		pr = PlayersMove(
 			player_name="Doraemon",
-			player_move="Rock" # Doraemen can only play rock :)
+			move="Rock" # Doraemen can only play rock :)
 		)
 		state["current_round_state"]["players_moves"].append(pr)
 
-	@traceable 
+	# @traceable 
+	# def judge_llm(self, state: GameState) -> GameState:
+	# 	print(f"judge input state: {state}")
+	# 	judge_llm = LLM(model="bedrock/anthropic.claude-3-haiku-20240307-v1:0", temperature=0.1)
+	# 	judge_crew = JudgeCrew(judge_llm)
+	# 	jr = judge_crew.crew.kickoff(inputs={"players_moves": state["current_round_state"]}).pydantic.model_dump()
+
+	# 	round_number = state["current_round_number"]
+	# 	state["current_round_state"]["judge_result"] = jr
+
+	# 	# Add the current round state to the round history
+	# 	state["round_history"][round_number] = state["current_round_state"]
+ 
 	def judge(self, state: GameState) -> GameState:
 		print(f"judge input state: {state}")
-		judge_llm = LLM(model="bedrock/anthropic.claude-3-haiku-20240307-v1:0", temperature=0.1)
-		judge_crew = JudgeCrew(judge_llm)
-		jr = judge_crew.crew.kickoff(inputs={"players_moves": state["current_round_state"]}).pydantic.model_dump()
-
-		round_number = state["current_round_number"]
+		
+		# Get the moves from current round state
+		players_moves: List[PlayersMove] = state["current_round_state"]["players_moves"]
+		
+		if len(players_moves) != 2:
+			raise ValueError("Rock-Paper-Scissors requires exactly 2 players")
+		
+		# Correctly access PlayersMove TypedDict fields
+		player1_name = players_moves[0]["player_name"]
+		player1_move = players_moves[0]["move"].lower()
+		player2_name = players_moves[1]["player_name"]
+		player2_move = players_moves[1]["move"].lower()
+		
+		# Define winning combinations (key beats value)
+		rules = {
+			"rock": "scissors",
+			"scissors": "paper",
+			"paper": "rock"
+		}
+		
+		# Determine winner
+		jr: JudgeResult = {"winner": ""}  # Initialize with empty string
+		
+		if player1_move == player2_move:
+			jr["winner"] = "tie"
+		elif rules[player1_move] == player2_move:
+			jr["winner"] = player1_name
+		else:
+			jr["winner"] = player2_name
+		
+		# Update state with judge result
+		round_number = str(state["current_round_number"])  # Convert to string for dict key
 		state["current_round_state"]["judge_result"] = jr
-
+		
 		# Add the current round state to the round history
 		state["round_history"][round_number] = state["current_round_state"]
 

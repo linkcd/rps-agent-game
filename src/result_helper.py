@@ -10,19 +10,25 @@ from io import StringIO
 from matplotlib.font_manager import FontProperties
 import math
 
+def capitalize_first(string):
+    if not string:  # Handle empty string
+        return string
+    return string[0].upper() + string[1:].lower()
+
 def json_to_csv(json_string):
     # Parse the JSON string
     data = json.loads(json_string)
     
     # Extract rounds and organize moves by player
-    rounds = sorted(data.keys())
+    # Convert round numbers to integers for proper sorting
+    rounds = sorted(data.keys(), key=int)  # Changed this line
     players_moves = {}
 
     # Initialize dictionary to hold moves for each player
     for round_num in rounds:
         for move in data[round_num]["players_moves"]:
-            player_name = move.get("player_name", move.get("player_name", "Unknown"))
-            player_move = move.get("player_move", move.get("move", "Unknown"))
+            player_name = move.get("player_name", "Unknown")
+            player_move = capitalize_first(move.get("move", "Unknown"))
             
             if player_name not in players_moves:
                 players_moves[player_name] = []
@@ -71,7 +77,7 @@ def plot_rock_paper_scissors_results(csv_string, file_name):
     
     # Colors
     WIN_COLOR = "green"
-    LOSE_COLOR = "orange"
+    LOSE_COLOR = "tomato"
     TIE_COLOR = "gray"
 
     # ====== Helper Functions ======
@@ -197,6 +203,7 @@ def save_game_result(final_result, history):
     
     # Modify the filename to include the subfolder
     filename = os.path.join("game_outputs", f"game_result_{timestamp}.txt")
+    csv_filename = os.path.join("game_outputs", f"game_result_{timestamp}.csv")
     img_filename = os.path.join("game_outputs", f"game_result_{timestamp}.png")
 
     with open(filename, 'w') as file:
@@ -208,7 +215,13 @@ def save_game_result(final_result, history):
         file.write("\n\n")
         file.write(history)
 
-    plot_rock_paper_scissors_results(json_to_csv(history), img_filename)
+    csv_content = json_to_csv(history)
+
+    # for debugging csv output only    
+    # with open(csv_filename, 'w') as file:
+    #     file.write(csv_content)
+
+    plot_rock_paper_scissors_results(csv_content, img_filename)
     
 def __main__():
     csv_data_5 = """Round #;1;2;3;4;5
