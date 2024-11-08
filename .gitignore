@@ -1,3 +1,7 @@
+# game output
+game_outputs/
+rock_paper_scissors_result*
+
 # Python bytecode
 __pycache__/
 *.py[cod]

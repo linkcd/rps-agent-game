@@ -1,26 +1,13 @@
-from .state import PlayersMove, JudgeResult, RoundState, GameState
-from crewai import LLM
-from .crew.crew import PlayerCrew, JudgeCrew
-from langsmith import traceable
+import json
 
+from langsmith import traceable
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_aws import ChatBedrock
-import json
-from datetime import datetime
+from crewai import LLM
 
-def save_game_result(final_result, history):
-	timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-	filename = f"game_result_{timestamp}.txt"
-
-	with open(filename, 'w') as file:
-		file.write(final_result)
-		
-	with open(filename, 'a') as file:
-		file.write("\n\n")
-		file.write("game rounds history:")
-		file.write("\n\n")
-		file.write(history)
-
+from .state import PlayersMove, JudgeResult, RoundState, GameState
+from .crew.crew import PlayerCrew, JudgeCrew
+from .result_helper import save_game_result
 
 class Nodes():
 	def start_new_round(self, state: GameState) -> GameState:
