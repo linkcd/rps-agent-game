@@ -13,8 +13,8 @@ class GraphBuilder():
 		graph_builder = StateGraph(GameState)
 
 		graph_builder.add_node("start_new_round", nodes.start_new_round)
-		graph_builder.add_node("player1", nodes.player2)
-		graph_builder.add_node("player2", nodes.Doraemon)
+		graph_builder.add_node("player1", nodes.player1)
+		graph_builder.add_node("player2", nodes.player2)
 		graph_builder.add_node("judge", nodes.judge)
 		graph_builder.add_node("announce_winner", nodes.announce_winner)
 
