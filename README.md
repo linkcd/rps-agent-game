@@ -103,17 +103,29 @@ Within 20 rounds, Llama3 8B Instruct initially performed better. However, as mor
 > In conclusion, claude-3-sonnet appears to have adapted its strategy to counter llama3-8b-instruct's preference for Paper, leading to its decisive victory in the game.
 
 
+### Game 4: OpenAI-GPT-4o Mini vs Claude Sonnet 3
+**Game 4 results:**
+- [100 rounds](/doc/game_history/openai-gpt-4o-mini%20vs%20claude-3-sonet.txt) : OpenAI-GPT-4o Mini **22:48** claude-3-sonnet, with 30 ties
+![100 rounds](/doc/game_history/openai-gpt-4o-mini%20vs%20claude-3-sonet.png)
+
 ## 5. Run the project
 ```bash
+# 1. Install package dependencies
 python -m venv .venv
+source .venv/bin/activate 
 pip install -r requirements.txt 
 
-# create .env file has correct API keys. the example file is .sample.env
+# 2. Create .env file has correct API keys. the example file is .sample.env
 
-#The execution result will be be 2 files in game_outputs folder
+# 3. Run the game with 3 rounds 
+python main.py --max_round 3
+# change the parameter to run 100 rounds
+# python main.py --max_round 100
+
+# 4. Check the result: 
+# The execution result will be be 2 files in game_outputs folder
 # - 1. game_result_{timestamp}.txt - post game analysis and complete round history: 
 # - 2. game_result_{timestamp}.png - game result visualization
-python main.py 
 ```
 
 ## License

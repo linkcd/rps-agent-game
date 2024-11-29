@@ -1,8 +1,8 @@
-crewai
-crewai_tools
-langgraph
-python-dotenv
-boto3
-langchain-aws
-langsmith
-matplotlib
+crewai==0.76.9
+crewai-tools==0.13.4
+langgraph==0.2.45
+python-dotenv==1.0.1
+boto3==1.35.54
+langchain-aws==0.2.6
+langsmith==0.1.139
+matplotlib==3.9.2

@@ -1,4 +1,5 @@
 import json
+import os
 
 from langsmith import traceable
 from langchain_core.messages import HumanMessage, AIMessage
@@ -22,24 +23,33 @@ class Nodes():
 		return state
 	
 	@traceable 
-	def player1(self, state: GameState) -> GameState:
-		print(f"p1 input state: {state}")
+	def player_claude(self, state: GameState) -> GameState:
+		print(f"player_claude input state: {state}")
 		player_llm = LLM(model="bedrock/anthropic.claude-3-sonnet-20240229-v1:0", temperature=0.1)
 		player_crew = PlayerCrew("claude-3-sonnet", player_llm)
         
 		pr = player_crew.crew.kickoff(inputs={"round_history": state["round_history"]}).pydantic.model_dump()
-		print("player 1: ", pr)
+		print("player claude: ", pr)
 		state["current_round_state"]["players_moves"].append(pr)
 
 	@traceable 
-	def player2(self, state: GameState) -> GameState:
-		print(f"p2 input state: {state}")
+	def player_llama(self, state: GameState) -> GameState:
+		print(f"player_llama input state: {state}")
 		#player_llm = LLM(model="bedrock/anthropic.claude-3-haiku-20240307-v1:0", temperature=0.1)
 		player_llm = LLM(model="bedrock/meta.llama3-8b-instruct-v1:0", temperature=0.1)
 		player_crew = PlayerCrew("llama3-8b-instruct", player_llm)
   
 		pr = player_crew.crew.kickoff(inputs={"round_history": state["round_history"]}).pydantic.model_dump()
-		print("player 2: ", pr)
+		print("player_llama: ", pr)
+		state["current_round_state"]["players_moves"].append(pr)
+
+	def player_openAI(self, state: GameState) -> GameState:
+		print(f"openai input state: {state}")
+		player_llm = LLM(model="openai/gpt-4o-mini", api_key=os.getenv('OPENAI_API_KEY'), temperature=0.1)
+		player_crew = PlayerCrew("openai-gpt-4o-mini", player_llm)
+
+		pr = player_crew.crew.kickoff(inputs={"round_history": state["round_history"]}).pydantic.model_dump()
+		print("player OpenAI: ", pr)
 		state["current_round_state"]["players_moves"].append(pr)
 
 	def Doraemon(self, state: GameState) -> GameState:
@@ -103,7 +113,7 @@ class Nodes():
 
 	def check_if_need_more_round(self, state):
 		print(f"condition check input state: {state}")
-		if state["current_round_number"] < 20:
+		if state["current_round_number"] < state["max_round"]:
 			print("## need more round")
 			return "continue"
 		else:

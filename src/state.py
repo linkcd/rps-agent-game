@@ -14,6 +14,7 @@ class RoundState(TypedDict):
     judge_result: JudgeResult
 
 class GameState(TypedDict):
+    max_round: int
     current_round_number: int
     current_round_state: RoundState
     round_history: Dict[str, RoundState]
