@@ -21,10 +21,14 @@ input = GameState(
     )
 
 app = GraphBuilder().app
-
 app.invoke(input, {"recursion_limit": 500})
 
-# for chunk in app.stream(input, stream_mode="debug"):
-#     node_name = list(chunk.keys())[0]
-#     print(f"---------- Update from node {node_name} ---------")
-#     print(chunk)
+# Use following code for generating graph
+# try:
+#     graph_png = app.get_graph().draw_mermaid_png()
+#     with open("doc/generated_graph.png", "wb") as f:
+#         f.write(graph_png)
+#     print(f"Graph saved")
+# except Exception as e:
+#     print(f"Failed to save graph: {e}")
+#     pass

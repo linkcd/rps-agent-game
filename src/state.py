@@ -1,4 +1,6 @@
-from typing import Annotated, TypedDict, Dict, List, Literal
+from typing import Annotated, Dict, List, Literal #, TypedDict
+from typing_extensions import TypedDict # Using typing_extensions.TypedDict on Python < 3.12 python
+
 import operator
 
 class PlayersMove(TypedDict):

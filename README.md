@@ -1,5 +1,7 @@
 # Rock Paper Scissors (rps) Agent Game
 
+Read my blog post about this project: [Build a Multi-Agent System to Discover the Top AI Model for Rock-Paper-Scissors Games](https://feng.lu/2024/12/03/Build-a-Multi-Agent-System-to-Discover-the-Top-AI-Model-for-Rock-Paper-Scissors-Games/)
+
 ## 1. Introduction
 Have you ever wondered which AI model is the best Rock-Paper-Scissors player? This project will help you find out!
 
@@ -108,6 +110,25 @@ Within 20 rounds, Llama3 8B Instruct initially performed better. However, as mor
 - [100 rounds](/doc/game_history/openai-gpt-4o-mini%20vs%20claude-3-sonet.txt) : OpenAI-GPT-4o Mini **22:48** claude-3-sonnet, with 30 ties
 ![100 rounds](/doc/game_history/openai-gpt-4o-mini%20vs%20claude-3-sonet.png)
 
+> Noticeable Patterns for the game with 100 rounds:
+> 
+> a) openai-gpt-4o-mini:
+> - Showed a strong preference for Rock, especially in the latter half of the game.
+> - From round 55 onwards, openai-gpt-4o-mini played Rock almost exclusively (45 out of 46 times).
+> - This predictable pattern was likely exploited by claude-3-sonnet.
+> 
+> b) claude-3-sonnet:
+> - Displayed more varied play in the first half of the game.
+> - Adapted its strategy in the second half, playing Paper much more frequently, likely in response to openai-gpt-4o-mini's Rock preference.
+> - From round 55 onwards, claude-3-sonnet alternated mostly between Paper and Scissors, with Paper being more frequent.
+> 
+> c) Game Dynamics:
+> - The game was relatively balanced in the first half, with both players winning rounds and several ties.
+> - In the second half, claude-3-sonnet gained a significant advantage by adapting to openai-gpt-4o-mini's predictable play.
+> - There was a streak of 15 consecutive wins for claude-3-sonnet from rounds 55 to 69, all countering openai-gpt-4o-mini's Rock with Paper.
+> 
+> In conclusion, claude-3-sonnet demonstrated superior adaptability and strategy, particularly in the latter half of the game, leading to its decisive victory.
+
 ## 5. Run the project
 ```bash
 # 1. Install package dependencies
@@ -115,7 +136,7 @@ python -m venv .venv
 source .venv/bin/activate 
 pip install -r requirements.txt 
 
-# 2. Create .env file has correct API keys. the example file is .sample.env
+# 2. Create .env file has correct API keys. the example file is .sample.env. Also make sure you have AWS CLI configured that the application can call AWS Bedrock API.
 
 # 3. Run the game with 3 rounds 
 python main.py --max_round 3
